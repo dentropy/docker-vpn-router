@@ -14,7 +14,7 @@ services:
   vpn:
     build: vpn
     cap_add:
-      - ALL
+      - NET_ADMIN
     environment:
       VPNID: 'VPN001'
     networks:
@@ -26,6 +26,8 @@ services:
 
   client:
     build: client
+    cap_add:
+      - NET_ADMIN
     environment:
       GW_IP: '172.78.0.123'
     networks:
