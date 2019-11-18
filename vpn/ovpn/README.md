@@ -1,0 +1,1 @@
+# This folder holds the .ovpn files, remember to add a pass.txt to this directory if required

@@ -1,0 +1,36 @@
+# Docker Compose description of the combined application.
+#
+# 'docker-compose up' will run this.
+version: '3'  # requires Docker Compose 1.13 or later
+
+networks:
+  vpn_test_network:
+    ipam:
+     config:
+       - subnet: 172.78.0.0/16
+
+services:
+
+  vpn:
+    build: vpn
+    cap_add:
+      - ALL
+    environment:
+      VPNID: 'VPN001'
+    networks:
+      vpn_test_network:
+        ipv4_address: 172.78.0.123
+    dns: 
+      - 1.1.1.1
+      - 8.8.8.8
+
+  client:
+    build: client
+    environment:
+      GW_IP: '172.78.0.123'
+    networks:
+      vpn_test_network:
+        ipv4_address: 172.78.0.8
+    dns: 
+      - 1.1.1.1
+      - 8.8.8.8
